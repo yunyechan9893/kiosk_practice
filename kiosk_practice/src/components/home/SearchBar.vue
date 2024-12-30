@@ -20,7 +20,7 @@ export default {
 <style scoped>
 .search {
   height:60px;
-  width: 630px;
+  width: 100%;
 }
 
 #search-bar {

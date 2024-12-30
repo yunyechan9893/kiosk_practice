@@ -2,24 +2,23 @@
   <header>
     <div class="menu">
       <img id="hamburger-button" @click="alert('클릭!')" alt="햄버거 메뉴 버튼" type="button" src="\src\assets\images\HamburgerMenuButton.svg"/>
-      <SearchBar></SearchBar>
+      <SearchBar style="flex-grow: 1"></SearchBar>
       <img id="h" alt="홈 버튼" type="button" src="\src\assets\images\Home.svg"/>
-      <img id="h" alt="장바구니 버튼" type="button" src="\src\assets\images\Basket.svg"/>
+      <img id="h" @click="open" alt="장바구니 버튼" type="button" src="\src\assets\images\Basket.svg"/>
     </div>
   </header>
 </template>
 
-<script>
+<script setup>
 import SearchBar from '@/components/home/SearchBar.vue';
 
-export default {
-  components: { SearchBar },
-  setup() {
 
+function open() {
+  const modal = document.querySelector('.cart-section');
 
-    return {};
-  },
-};
+  modal.style.transition = 'transform 0.3s ease';
+  modal.style.transform = 'translateX(0)';
+}
 </script>
 
 <style scoped>
@@ -27,7 +26,7 @@ header {
   position: relative;
   width: 100%;
   height: 30%;
-  padding: 30px 30px 30px 30px;
+  padding: 30px 30px 0px 0px;
 }
 .menu {
   position: relative;
