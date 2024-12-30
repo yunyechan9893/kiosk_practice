@@ -2,9 +2,10 @@
   <div id="menu">
     <span id="menu-title">Burger</span>
     <div class="menu-section">
-      <Menu v-for="(item, index) in menuItems"
-            :key = "index"
-            :imgUrl = "item.imgUrl"
+      <Menu v-for="(item, _) in menuItems"
+            :key = "item.id"
+            :id="item.id"
+            :imageUrl = "item.imageUrl"
             :title = "item.title"
             :contents = "item.contents"
             :reviewAverage = "item.reviewAverage"
@@ -14,67 +15,63 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Menu from '@/components/home/Menu.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useMenuStore } from '@/store/menu/MenuStore.ts';
 
-export default {
-  components: { Menu },
-  setup() {
-    const menuItems = ref([
-      {
-        imgUrl: '/src/assets/images/Burger.png',
-        title: 'The Jalapeno Popper Show',
-        contents: 'The Jalapeno Popper Show is a Mexican Chicken Burger topped with jalapeno-infused cream cheese.',
-        reviewAverage: 4.5,
-        price: 10000,
-      },
-      {
-        imgUrl: '/src/assets/images/Burger2.png',
-        title: 'The Pepperoni Pizza',
-        contents: 'Delicious pepperoni pizza with extra cheese.',
-        reviewAverage: 4.8,
-        price: 12000,
-      },
-      {
-        imgUrl: '/src/assets/images/Burger3.png',
-        title: 'Sausage Special',
-        contents: 'A tasty sausage burger with fresh toppings.',
-        reviewAverage: 4.2,
-        price: 5900,
-      },
-      {
-        imgUrl: '/src/assets/images/Burger3.png',
-        title: 'Sausage Special',
-        contents: 'A tasty sausage burger with fresh toppings.',
-        reviewAverage: 4.2,
-        price: 5900,
-      },
-      {
-        imgUrl: '/src/assets/images/Burger3.png',
-        title: 'Sausage Special',
-        contents: 'A tasty sausage burger with fresh toppings.',
-        reviewAverage: 4.2,
-        price: 5900,
-      },
-    ]);
+const {
+  getList,
+  addList
+} = useMenuStore();
 
-    const imgUrl = ref('/src/assets/images/Burger.png');
-    const title = ref('The Jalapeno Popper Show')
-    const contents = ref('The Jalapeno Popper Show is a Mexican Chicken Burger topped with jalapeno-infused cream cheese.')
-    const reviewAverage = ref(0.0);
-    const price = ref(0);
+onMounted(() => {
+  addList([
+    {
+      id:1,
+      title: 'The Jalapeno Popper Show',
+      contents: 'The Jalapeno Popper Show is a Mexican Chicken Burger topped with jalapeno-infused cream cheese.',
+      reviewAverage: 4.5,
+      price: 10000,
+      imageUrl: '/src/assets/images/Burger.png',
+    },
+    {
+      id:2,
+      imageUrl: '/src/assets/images/Burger2.png',
+      title: 'The Pepperoni Pizza',
+      contents: 'Delicious pepperoni pizza with extra cheese.',
+      reviewAverage: 4.8,
+      price: 12000,
+    },
+    {
+      id:3,
+      imageUrl: '/src/assets/images/Burger3.png',
+      title: 'Sausage Special',
+      contents: 'A tasty sausage burger with fresh toppings.',
+      reviewAverage: 4.2,
+      price: 5900,
+    },
+    {
+      id:4,
+      imageUrl: '/src/assets/images/Burger3.png',
+      title: 'Sausage Special',
+      contents: 'A tasty sausage burger with fresh toppings.',
+      reviewAverage: 4.2,
+      price: 5900,
+    },
+    {
+      id:5,
+      imageUrl: '/src/assets/images/Burger3.png',
+      title: 'Sausage Special',
+      contents: 'A tasty sausage burger with fresh toppings.',
+      reviewAverage: 4.2,
+      price: 5900,
+    },
+  ])
+})
 
-    return {
-      menuItems,
-      imgUrl,
-      title,
-      contents,
-      reviewAverage,
-      price
-    };
-  },
-};
+const menuItems = ref(getList());
+
 </script>
 
 <style scoped>

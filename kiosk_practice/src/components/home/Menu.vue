@@ -11,25 +11,40 @@
           <div style="display: flex; flex-direction: row; align-items: center;">
             <span class="price">{{ price }}</span>
             <span class="price" style="margin-right: 10px;">원</span>
-            <img src="/src/assets/images/Pick.svg"  style="width: 40px; height: 40px" alt="장바구니 담기">
+            <img @click="addCartItem" src="/src/assets/images/Pick.svg" :data-id="props.id" style="width: 40px; height: 40px" alt="장바구니 담기">
           </div>
         </div>
       </div>
     <div id="menu-img">
-      <img :src="imgUrl" alt="배너">
+      <img :src="imageUrl" alt="배너">
     </div>
   </div>
 </template>
 
 <script setup>
 
+import { useCartStore } from '@/store/cart/CartStore.ts';
+import { useMenuStore } from '@/store/menu/MenuStore.ts';
+
+
+const cartStore = useCartStore()
+const menuStore = useMenuStore()
+
 const props = defineProps({
-  imgUrl:String,
+  id:Number,
+  imageUrl:String,
   title: String,
   contents: String,
   reviewAverage: Number,
   price: Number
 })
+console.log(props)
+function addCartItem(event) {
+  const id = event.target.dataset.id;
+  cartStore.addItem({id:id, count:1}) ?
+    alert("아이템을 추가했습니다"):
+    alert("이미 장바구니에 담았습니다.");
+}
 
 </script>
 
