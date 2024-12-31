@@ -5,9 +5,7 @@
     <Category />
     <MenuList />
     <div class="cart-section">
-      <Cart
-        @close="close"
-      />
+      <Cart />
     </div>
   </DefaultClientLayout>
 </template>
@@ -19,14 +17,6 @@ import BannerList from '@/components/home/BannerList.vue';
 import Category from '@/components/home/Category.vue';
 import MenuList from '@/components/home/MenuList.vue';
 import Cart from '@/components/home/Cart.vue';
-
-function close() {
-  const modal = document.querySelector('.cart-section');
-
-  modal.style.transition = 'transform 0.3s ease';
-  modal.style.transform = 'translateX(100%)';
-  console.log(modal.style.transform)
-}
 </script>
 
 <style>

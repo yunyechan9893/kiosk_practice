@@ -49,8 +49,6 @@ import { useMenuStore } from '@/store/menu/MenuStore.ts';
 import CartItem from '@/components/home/CartItem.vue';
 import { defineEmits, onMounted, ref, watch } from 'vue';
 
-const emit = defineEmits();
-
 // Todo - DB 연결전까지 임시 구성
 const cartItemStore = useCartItemStore();
 const cartStore = useCartStore();
@@ -58,6 +56,7 @@ const menuStore = useMenuStore();
 const cartItems = ref([])
 
 onMounted(() => {
+  close()
   setCartItems();
 });
 
@@ -86,7 +85,11 @@ function setCartItems() {
 }
 
 function close() {
-  emit('close');
+  const modal = document.querySelector('.cart-section');
+
+  modal.style.transition = 'transform 0.3s ease';
+  modal.style.transform = 'translateX(100%)';
+  console.log(modal.style.transform)
 }
 </script>
 
