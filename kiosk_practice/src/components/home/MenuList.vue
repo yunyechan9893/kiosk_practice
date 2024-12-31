@@ -20,10 +20,7 @@ import Menu from '@/components/home/Menu.vue';
 import { onMounted, ref } from 'vue';
 import { useMenuStore } from '@/store/menu/MenuStore.ts';
 
-const {
-  getList,
-  addList
-} = useMenuStore();
+const { getList, addList } = useMenuStore();
 
 onMounted(() => {
   addList([

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue';
+import { readonly, ref } from 'vue';
 
 interface Menu {
   id:number,
@@ -14,7 +14,8 @@ export const useMenuStore = defineStore('menu',() => {
   const menus = ref<Menu[]>([]);
 
   function getList() {
-    return menus.value;
+    const readonlyMenus = readonly(menus);
+    return readonlyMenus.value;
   }
 
   function add(menu:Menu) {
@@ -26,7 +27,6 @@ export const useMenuStore = defineStore('menu',() => {
   }
 
   return {
-    menus,
     getList,
     add,
     addList

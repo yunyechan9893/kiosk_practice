@@ -25,7 +25,7 @@ function open() {
 header {
   position: relative;
   width: 100%;
-  height: 30%;
+  height: auto;
   padding: 30px 30px 0px 0px;
 }
 .menu {
