@@ -2,7 +2,7 @@
   <Carousel v-bind="config">
     <Slide v-for="(src, index) in urls" :key="index">
       <div class="carousel__item">
-        <img :src="src" alt="배너이미지">
+        <img id="banner" :src="src" alt="배너이미지">
       </div>
     </Slide>
 
@@ -30,7 +30,7 @@ const config = {
 
 <style scoped>
 #banner {
-  width: 100%;
+  width: 85%;
   height: auto;
   max-width: 2000px;
   max-height: 2000px;

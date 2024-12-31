@@ -21,7 +21,7 @@ console.log("이거")
 body {
   width: 100%;
   min-width: 1200px;
-  max-width: 98vw;
+  max-width: 97vw;
   background: #F5F5F5;
   margin: 0;
   padding: 0;
@@ -33,11 +33,11 @@ body {
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 main {
-  flex: 1;
-  overflow-y: auto;
+  height: 60%;
+  width: 100%;
+  margin-top: 30px;
 }
 </style>

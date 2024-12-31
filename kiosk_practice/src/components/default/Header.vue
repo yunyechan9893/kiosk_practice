@@ -2,7 +2,7 @@
   <header>
     <div class="menu">
       <img id="hamburger-button" @click="alert('클릭!')" alt="햄버거 메뉴 버튼" type="button" src="\src\assets\images\HamburgerMenuButton.svg"/>
-      <SearchBar style="flex-grow: 1"></SearchBar>
+      <SearchBar></SearchBar>
       <img id="h" alt="홈 버튼" type="button" src="\src\assets\images\Home.svg"/>
       <img id="h" @click="open" alt="장바구니 버튼" type="button" src="\src\assets\images\Basket.svg"/>
     </div>

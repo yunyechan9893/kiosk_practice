@@ -1,30 +1,62 @@
 <template>
   <div class="cart-item">
     <div class="section" id="img-section">
-      <img id="menu-img" src="/src/assets/images/Burger.png" alt="메뉴 이미지">
+      <img id="menu-img" :src="imageUrl" alt="메뉴 이미지">
     </div>
-    <div class="section product-info">
-      <span id="title">The Brooklyn</span>
-      <div>
-        <span class="price">30000</span>
-        <span class="price">원</span>
+    <div class="section product-info width-100">
+      <span id="title">{{ title }}</span>
+      <div class="horizontal-section space-between width-100">
+        <div>
+          <span class="price">{{ price }}</span>
+          <span class="price">원</span>
+        </div>
+        <div class="horizontal-section">
+          <img class="cart-button" @click="decrementCount" src="/src/assets/images/CartDecrementCount.svg" alt="주문 개수 감소 버튼">
+          <p class="cart-count">{{ productCount }}</p>
+          <img class="cart-button" @click="incrementCount" src="/src/assets/images/CartIncrementCount.svg" alt="주문 개수 증가 버튼">
+        </div>
       </div>
-    </div>
-    <div class="horizontal-section">
-      <img class="cart-button" src="/src/assets/images/CartDecrementCount.svg" alt="주문 개수 감소 버튼">
-      <p class="cart-count">0</p>
-      <img class="cart-button" src="/src/assets/images/CartIncrementCount.svg" alt="주문 개수 증가 버튼">
     </div>
   </div>
 </template>
 
 <script setup>
 
+import { useCartItemStore, useCartStore } from '@/store/cart/CartStore.ts';
+import { onMounted } from 'vue';
+
+const cartItemStore = useCartItemStore()
+const cartStore = useCartStore()
+
+const props = defineProps({
+  id: Number,
+  imageUrl: String,
+  title: String,
+  price: Number,
+  productCount: Number,
+});
+
+onMounted(() => {
+  cartStore.addTotal(props.price)
+})
+
+function incrementCount() {
+  cartItemStore.incrementCount(props.id);
+  cartStore.addTotal(props.price)
+}
+
+function decrementCount() {
+  const isSuccess = cartItemStore.decrementCount(props.id);
+
+  if (isSuccess) {
+    cartStore.subTotal(props.price)
+  }
+}
 </script>
 
 <style scoped>
 .cart-item {
-  width: 320px;
+  width: 340px;
   height: 110px;
   padding: 15px;
 
@@ -112,7 +144,13 @@
   letter-spacing: -0.03em;
 
   color: #3D3D3D;
+}
 
+.space-between{
+  justify-content: space-between;
+}
 
+.width-100{
+  width: 100%;
 }
 </style>

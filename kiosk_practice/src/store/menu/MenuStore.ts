@@ -13,6 +13,10 @@ interface Menu {
 export const useMenuStore = defineStore('menu',() => {
   const menus = ref<Menu[]>([]);
 
+  function get(index:number) : Menu{
+    return menus.value.find((menu) => menu.id == index);
+  }
+
   function getList() {
     const readonlyMenus = readonly(menus);
     return readonlyMenus.value;
@@ -27,6 +31,7 @@ export const useMenuStore = defineStore('menu',() => {
   }
 
   return {
+    get,
     getList,
     add,
     addList

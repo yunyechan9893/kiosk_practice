@@ -23,11 +23,11 @@
 
 <script setup>
 
-import { useCartStore } from '@/store/cart/CartStore.ts';
+import { useCartItemStore } from '@/store/cart/CartStore.ts';
 import { useMenuStore } from '@/store/menu/MenuStore.ts';
 
 
-const cartStore = useCartStore()
+const cartStore = useCartItemStore()
 const menuStore = useMenuStore()
 
 const props = defineProps({
@@ -38,9 +38,9 @@ const props = defineProps({
   reviewAverage: Number,
   price: Number
 })
-console.log(props)
+
 function addCartItem(event) {
-  const id = event.target.dataset.id;
+  const id = parseInt(event.target.dataset.id);
   cartStore.addItem({id:id, count:1}) ?
     alert("아이템을 추가했습니다"):
     alert("이미 장바구니에 담았습니다.");

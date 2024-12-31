@@ -3,27 +3,36 @@
     <img id="back" @click="close" src="/src/assets/images/Back.svg" alt="뒤로가기">
     <img id="pencil" src="/src/assets/images/Pencil.svg" alt="연필이미지">
     <span id="title">Your Cart</span>
-    <CartItem />
+    <div class="cart-items-container">
+      <CartItem v-for="(item, _) in cartItems"
+        :key="item.id"
+        :id="item.id"
+        :imageUrl="item.imageUrl"
+        :title="item.title"
+        :price="item.price"
+        :productCount="item.productCount"
+      />
+    </div>
     <div class="footer">
       <div class="total-price-section">
         <div class="price-line">
           <span class="price-title-text">Subtotal</span>
           <div>
-            <span class="price-text">0</span>
+            <span class="price-text width-80">{{ cartStore.getSubtotal() }}</span>
             <span class="price-text">원</span>
           </div>
         </div>
         <div class="price-line">
           <span class="price-title-text">Tax</span>
           <div>
-            <span class="price-text">0</span>
+            <span class="price-text width-80">{{ cartStore.getTax() }}</span>
             <span class="price-text">원</span>
           </div>
         </div>
         <div class="price-line">
           <span class="price-title-text">Total</span>
           <div>
-            <span class="price-text">0</span>
+            <span class="price-text width-80">{{ cartStore.getTotal() }}</span>
             <span class="price-text">원</span>
           </div>
         </div>
@@ -34,10 +43,47 @@
 </template>
 
 <script setup>
+import { useCartItemStore } from '@/store/cart/CartStore.ts';
+import { useCartStore } from '@/store/cart/CartStore.ts';
+import { useMenuStore } from '@/store/menu/MenuStore.ts';
 import CartItem from '@/components/home/CartItem.vue';
-import { defineEmits } from 'vue';
+import { defineEmits, onMounted, ref, watch } from 'vue';
 
 const emit = defineEmits();
+
+// Todo - DB 연결전까지 임시 구성
+const cartItemStore = useCartItemStore();
+const cartStore = useCartStore();
+const menuStore = useMenuStore();
+const cartItems = ref([])
+
+onMounted(() => {
+  setCartItems();
+});
+
+watch(
+  () => cartItemStore.items,
+  () => {
+    setCartItems()
+
+  },
+  { deep: true }
+);
+
+
+function setCartItems() {
+  const cartList = cartItemStore.getItems()
+  cartItems.value = cartList.map((cartItem) => {
+    const menu = menuStore.get(cartItem.id)
+    return {
+      id:menu.id,
+      imageUrl:menu.imageUrl,
+      title:menu.title,
+      price:menu.price,
+      productCount:cartItem.count
+    }
+  })
+}
 
 function close() {
   emit('close');
@@ -50,7 +96,7 @@ function close() {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 370px;
+  width: 380px;
   height: 100vh;
   background: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
@@ -58,6 +104,16 @@ function close() {
   padding: 30px 18px 30px 18px;
   box-sizing: border-box;
   gap: 28px;
+}
+
+.cart-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 3px 3px 3px 3px;
 }
 
 #back {
@@ -104,7 +160,7 @@ function close() {
 }
 
 .price-title-text {
-  width: 215.6px;
+  width: 100px;
   height: 36px;
 
   font-family: 'Reem Kufi', sans-serif;
@@ -141,6 +197,10 @@ function close() {
   flex-direction: column;
   align-items: center;
   margin-top: auto;
+}
+
+.width-80 {
+  width: 80%;
 }
 
 </style>
