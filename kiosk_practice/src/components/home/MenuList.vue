@@ -20,55 +20,9 @@ import Menu from '@/components/home/Menu.vue';
 import { onMounted, ref } from 'vue';
 import { useMenuStore } from '@/store/menu/MenuStore.ts';
 
-const { getList, addList } = useMenuStore();
+const menuStore = useMenuStore();
 
-onMounted(() => {
-  addList([
-    {
-      id:1,
-      title: 'The Jalapeno Popper Show',
-      contents: 'The Jalapeno Popper Show is a Mexican Chicken Burger topped with jalapeno-infused cream cheese.',
-      reviewAverage: 4.5,
-      price: 10000,
-      imageUrl: '/src/assets/images/Burger.png',
-    },
-    {
-      id:2,
-      imageUrl: '/src/assets/images/Burger2.png',
-      title: 'The Pepperoni Pizza',
-      contents: 'Delicious pepperoni pizza with extra cheese.',
-      reviewAverage: 4.8,
-      price: 12000,
-    },
-    {
-      id:3,
-      imageUrl: '/src/assets/images/Burger3.png',
-      title: 'Sausage Special',
-      contents: 'A tasty sausage burger with fresh toppings.',
-      reviewAverage: 4.2,
-      price: 5900,
-    },
-    {
-      id:4,
-      imageUrl: '/src/assets/images/Burger3.png',
-      title: 'Sausage Special',
-      contents: 'A tasty sausage burger with fresh toppings.',
-      reviewAverage: 4.2,
-      price: 5900,
-    },
-    {
-      id:5,
-      imageUrl: '/src/assets/images/Burger3.png',
-      title: 'Sausage Special',
-      contents: 'A tasty sausage burger with fresh toppings.',
-      reviewAverage: 4.2,
-      price: 5900,
-    },
-  ])
-})
-
-const menuItems = ref(getList());
-
+const menuItems = ref(menuStore.getList());
 </script>
 
 <style scoped>

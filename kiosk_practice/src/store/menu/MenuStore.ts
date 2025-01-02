@@ -7,7 +7,8 @@ interface Menu {
   contents: string,
   reviewAverage: number,
   price: number,
-  imageUrl: string
+  imageUrl: string,
+  profile: string
 }
 
 export const useMenuStore = defineStore('menu',() => {

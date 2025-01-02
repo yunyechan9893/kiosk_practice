@@ -94,11 +94,16 @@ export const useCartItemStore = defineStore('cartItem',() => {
     return true;
   }
 
+  function getTotalItemCount() : number {
+    return items.value.length;
+  }
+
   return {
     items,
     getItems,
     addItem,
     incrementCount,
-    decrementCount
+    decrementCount,
+    getTotalItemCount
   }
 });

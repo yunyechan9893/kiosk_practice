@@ -1,24 +1,21 @@
 <template>
   <div id="category">
-    <img src="/src/assets/images/CategoryPizza.png" alt="카테고리 피자 버튼">
-    <img src="/src/assets/images/CategoryBurger.png" alt="카테고리 피자 버튼">
-    <img src="/src/assets/images/CategorySausage.png" alt="카테고리 피자 버튼">
-    <img src="/src/assets/images/CategorySamosa.png" alt="카테고리 피자 버튼">
-    <img src="/src/assets/images/CategoryDrinks.png" alt="카테고리 피자 버튼">
-    <img src="/src/assets/images/CategoryDesserts.png" alt="카테고리 피자 버튼">
+    <img src="/src/assets/images/CategoryPizza.png" alt="카테고리 피자 버튼" @click="navigateToCategory">
+    <img src="/src/assets/images/CategoryBurger.png" alt="카테고리 피자 버튼" @click="navigateToCategory">
+    <img src="/src/assets/images/CategorySausage.png" alt="카테고리 피자 버튼" @click="navigateToCategory">
+    <img src="/src/assets/images/CategorySamosa.png" alt="카테고리 피자 버튼" @click="navigateToCategory">
+    <img src="/src/assets/images/CategoryDrinks.png" alt="카테고리 피자 버튼" @click="navigateToCategory">
+    <img src="/src/assets/images/CategoryDesserts.png" alt="카테고리 피자 버튼" @click="navigateToCategory">
   </div>
 </template>
 
-<script>
-export default {
-  setup() {
+<script setup>
+import router from '@/routes';
 
-
-    return {};
-  },
-};
+function navigateToCategory() {
+  router.push('/products'); // 라우트 이동
+}
 </script>
-
 <style scoped>
 #category {
   width: 100%;
