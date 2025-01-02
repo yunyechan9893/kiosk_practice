@@ -89,7 +89,6 @@ function close() {
 
   modal.style.transition = 'transform 0.3s ease';
   modal.style.transform = 'translateX(100%)';
-  console.log(modal.style.transform)
 }
 </script>
 

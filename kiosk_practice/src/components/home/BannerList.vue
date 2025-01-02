@@ -1,5 +1,5 @@
 <template>
-  <Carousel v-bind="config">
+  <Carousel id="banner-container" v-bind="config">
     <Slide v-for="(src, index) in urls" :key="index">
       <div class="carousel__item">
         <img id="banner" :src="src" alt="배너이미지">
@@ -29,6 +29,11 @@ const config = {
 </script>
 
 <style scoped>
+#banner-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 #banner {
   width: 85%;
   height: auto;

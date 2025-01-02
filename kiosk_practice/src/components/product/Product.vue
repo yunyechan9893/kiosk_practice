@@ -6,7 +6,7 @@
           <img id="profile-image" :src="imageUrl" alt="상품 사진">
         </div>
         <div id="cart-container">
-          <input id="cart-button" type="button">
+          <input id="cart-button" type="button" @click="addCart">
         </div>
       </div>
       <span id="title">{{ title }}</span>
@@ -27,6 +27,10 @@
 
 <script setup>
 
+import { useCartItemStore } from '@/store/cart/CartStore.ts';
+
+const cartStore = useCartItemStore()
+
 const props = defineProps({
   id: Number,
   imageUrl: String,
@@ -35,6 +39,12 @@ const props = defineProps({
   reviewAverage: Number,
   price: Number,
 })
+
+function addCart() {
+  cartStore.addItem({id:props.id, count:1}) ?
+    alert("아이템을 추가했습니다"):
+    alert("이미 장바구니에 담았습니다.");
+}
 
 </script>
 

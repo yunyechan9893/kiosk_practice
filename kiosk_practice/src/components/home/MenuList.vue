@@ -19,10 +19,11 @@
 import Menu from '@/components/home/Menu.vue';
 import { onMounted, ref } from 'vue';
 import { useMenuStore } from '@/store/menu/MenuStore.ts';
+import CATEGORY from '@/constants/Category.ts';
 
 const menuStore = useMenuStore();
 
-const menuItems = ref(menuStore.getList());
+const menuItems = ref(menuStore.getRangeListByCategory(0, 5, CATEGORY.BURGER));
 </script>
 
 <style scoped>

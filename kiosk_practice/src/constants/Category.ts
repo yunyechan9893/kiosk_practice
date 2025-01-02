@@ -1,0 +1,10 @@
+const CATEGORY = {
+  PIZZA: "PIZZA",
+  BURGER: "BURGER",
+  SAUSAGE: "SAUSAGE",
+  SAMOSA: "SAMOSA",
+  DRINK: "DRINK",
+  DESSERT: "DESSERT"
+}
+
+export default CATEGORY

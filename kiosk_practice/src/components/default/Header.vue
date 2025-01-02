@@ -3,7 +3,7 @@
     <div class="menu">
       <img id="hamburger-button" @click="alert('클릭!')" alt="햄버거 메뉴 버튼" type="button" src="\src\assets\images\HamburgerMenuButton.svg"/>
       <SearchBar></SearchBar>
-      <img id="h" @click="moveHome" alt="홈 버튼" type="button" src="\src\assets\images\Home.svg" />
+      <img id="home" alt="홈 버튼" type="button" :src="homeUrl" @click="moveHome" @mouseenter="hoverIn" @mouseout="hoverOut"/>
     <div class="cart">
       <img id="h" @click="open" alt="장바구니 버튼" type="button" src="\src\assets\images\Basket.svg"/>
       <div id="cart-count">
@@ -17,30 +17,64 @@
 <script setup>
 import SearchBar from '@/components/home/SearchBar.vue';
 import { useCartItemStore } from '@/store/cart/CartStore.ts';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import router from '@/routes';
 
+const ICON = {
+  home:'/src/assets/images/Home.svg',
+  DisabledHome:'/src/assets/images/Home.png',
+  homeClick:'/src/assets/images/HomeClick.png'
+}
+
+const currentPath = router.currentRoute.value.path;
 const cartItemStore = useCartItemStore()
+
 const cartItemCount = computed(() => cartItemStore.getTotalItemCount());
 
 function open() {
+
   const modal = document.querySelector('.cart-section');
   modal.style.transition = 'transform 0.3s ease';
   modal.style.transform = 'translateX(0)';
 }
 
+const isHovered = ref(false);
+
+const homeUrl = computed(() => {
+  if (isHovered.value) {
+    return ICON.homeClick;
+  }
+  return currentPath === '/' || currentPath === '/Home' ? ICON.home : ICON.DisabledHome;
+});
+
+const hoverIn = () => {
+  if (currentPath === '/' || currentPath === '/Home') {
+    isHovered.value = false;
+    return;
+  }
+
+  isHovered.value = true;
+};
+
+const hoverOut = () => {
+  isHovered.value = false;
+};
+
 function moveHome() {
   router.push('/')
 }
-
 </script>
 
 <style scoped>
 header {
-  position: relative;
-  width: 100%;
-  height: auto;
-  padding: 30px 30px 0 0;
+  position:sticky;
+  width: 100vw;
+  height: 74px;
+  top: 0;
+  box-sizing: border-box;
+  padding: 50px 60px 0 60px;
+  background: #F5F5F5;
+  z-index: 9999;
 }
 .menu {
   position: relative;

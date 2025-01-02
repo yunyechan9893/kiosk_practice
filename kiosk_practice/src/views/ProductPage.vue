@@ -1,7 +1,9 @@
 <template>
   <DefaultClientLayout>
     <span id="menu-title">Burger</span>
-    <product-list></product-list>
+    <ProductList
+     :category="category"
+    />
     <div class="cart-section">
       <Cart />
     </div>
@@ -12,7 +14,10 @@
 import DefaultClientLayout from '@/layouts/DefaultClientLayout.vue';
 import Cart from '@/components/home/Cart.vue';
 import ProductList from '@/components/product/ProductList.vue';
+import { ref } from 'vue';
+import router from '@/routes/index.ts';
 
+const category = ref(router.currentRoute.value.query?.categoty)
 </script>
 
 <style>

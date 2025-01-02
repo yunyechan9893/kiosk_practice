@@ -15,8 +15,8 @@
           </div>
         </div>
       </div>
-    <div id="menu-img">
-      <img :src="imageUrl" alt="배너">
+    <div id="menu-image-container">
+      <img id="menu-image" :src="imageUrl" alt="배너">
     </div>
   </div>
 </template>
@@ -24,11 +24,8 @@
 <script setup>
 
 import { useCartItemStore } from '@/store/cart/CartStore.ts';
-import { useMenuStore } from '@/store/menu/MenuStore.ts';
-
 
 const cartStore = useCartItemStore()
-const menuStore = useMenuStore()
 
 const props = defineProps({
   id:Number,
@@ -39,9 +36,8 @@ const props = defineProps({
   price: Number
 })
 
-function addCartItem(event) {
-  const id = parseInt(event.target.dataset.id);
-  cartStore.addItem({id:id, count:1}) ?
+function addCartItem() {
+  cartStore.addItem({id:props.id, count:1}) ?
     alert("아이템을 추가했습니다"):
     alert("이미 장바구니에 담았습니다.");
 }
@@ -52,7 +48,8 @@ function addCartItem(event) {
 
 .main {
   position: relative;
-  width: 360px;
+  width: 340px;
+  min-width: 340px;
   height: 450px;
 }
 
@@ -147,7 +144,7 @@ function addCartItem(event) {
   color: #FE554A;
 }
 
-#menu-img {
+#menu-image-container {
   width:80%;
   height: auto;
   position: absolute;
@@ -155,5 +152,11 @@ function addCartItem(event) {
   flex-direction: row;
   justify-content: center;
   padding: 18px 10% 18px 10%;
+}
+
+#menu-image {
+  width: 155px;
+  height: 155px;
+  object-fit: cover;
 }
 </style>

@@ -16,15 +16,23 @@ import Product from '@/components/product/Product.vue';
 import { ref } from 'vue';
 import { useMenuStore } from '@/store/menu/MenuStore.ts';
 
+const prop = defineProps({
+  category:String
+})
+
 const menuStore = useMenuStore();
-const menuItems = ref(menuStore.getList());
+const menuItems = ref(menuStore.getListByCategory(prop.category));
+
+
 </script>
 
 <style scoped>
 .grid-container {
+  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(289px, 319px));
-  gap: 10px;
+  box-sizing: border-box;
+  gap: 20px;
 }
 
 </style>

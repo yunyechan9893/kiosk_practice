@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { readonly, ref } from 'vue';
+import category from '@/constants/Category';
 
 interface Menu {
   id:number,
@@ -7,6 +8,7 @@ interface Menu {
   contents: string,
   reviewAverage: number,
   price: number,
+  category: string,
   imageUrl: string,
   profile: string
 }
@@ -23,6 +25,23 @@ export const useMenuStore = defineStore('menu',() => {
     return readonlyMenus.value;
   }
 
+  function getListByCategory(category:String) {
+    const menusByType = menus.value.filter((menu) => menu.category === category)
+    const readonlyMenus = readonly(menusByType);
+    return readonlyMenus;
+  }
+
+  function getRangeList(start:number, end:number) {
+    const readonlyMenus = readonly(menus.value.slice(start, end));
+    return readonlyMenus.values();
+  }
+
+  function getRangeListByCategory(start:number, end:number, category:String) {
+    const menusByType = getListByCategory(category)
+    const readonlyMenus = readonly(menusByType.slice(start, end));
+    return readonlyMenus.values();
+  }
+
   function add(menu:Menu) {
     menus.value.push(menu);
   }
@@ -34,6 +53,9 @@ export const useMenuStore = defineStore('menu',() => {
   return {
     get,
     getList,
+    getRangeList,
+    getListByCategory,
+    getRangeListByCategory,
     add,
     addList
   }
